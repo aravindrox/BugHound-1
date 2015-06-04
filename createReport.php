@@ -11,7 +11,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="assets/css/main.css"/>
     </head>
     <body>
-        <form action="insertReport.php" name="createRep" method="post">
+        <form action="insertReport.php" name="createRep" onsubmit="return createReportValidate()" method="post">
             <?php
             $con = mysqli_connect('localhost', 'root', '', 'test');
             if (!$con) {
@@ -131,6 +131,7 @@ and open the template in the editor.
                 </a>
                 <script src="scripts/jquery-1.11.3.min.js"></script>
                 <script src="fetch.js"></script>
+                <script src="scripts/createReportValidate.js"></script>
         </form>
     </body>
 </html>
