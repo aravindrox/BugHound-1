@@ -2,6 +2,10 @@
 
 session_start();
 
+if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
+    header("Location: index.html");
+}
+
 $con = mysqli_connect('localhost', 'root', '', 'test');
 if (!$con) {
     die('Could not connect!' . mysqli_error());
@@ -9,6 +13,8 @@ if (!$con) {
 mysqli_select_db($con, "test");
 $sql = "INSERT INTO buginfo
         (`ProgramName`,
+        `Release_`,
+        `Version`,
         `ReportType`,		
         `Severity`,
         `ProblemSummary`,
@@ -19,7 +25,7 @@ $sql = "INSERT INTO buginfo
         `ReportedDate`
         )
         VALUES
-        ('$_POST[program]','$_POST[reportType]','$_POST[severity]','$_POST[probSummary]','$_POST[reprod]','$_POST[problem]','$_POST[fix]','$_POST[reportedBy]','$_POST[dated]')";
+        ('$_POST[program]','$_POST[release]','$_POST[version]','$_POST[reportType]','$_POST[severity]','$_POST[probSummary]','$_POST[reprod]','$_POST[problem]','$_POST[fix]','$_POST[reportedBy]','$_POST[dated]')";
 $result = mysqli_query($con, $sql);
 if ($result == TRUE) {
     $last_id = mysqli_insert_id($con);

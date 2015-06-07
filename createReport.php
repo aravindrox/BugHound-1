@@ -1,3 +1,10 @@
+<?php
+session_start();
+
+if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
+    header("Location: index.html");
+}
+?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -37,7 +44,7 @@ and open the template in the editor.
 
             <b> Severity </b>
             <select name="severity" id="severity">
-                <option value="r7" selected> </option>
+                <option value="0" selected> </option>
                 <option value="Fatal"> Fatal</option>
                 <option value="Severe"> Severe</option>
                 <option value="Minor"> Minor </option>
@@ -47,8 +54,10 @@ and open the template in the editor.
             <input type="text" name="probSummary" id="probSummary" size="60">
 
             <b> Reproducible?</b>
-            <input type="checkbox" name="reprod" id="reprod" value="Yes">
-
+            <select name="reprod" id="reprod">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
             <br><br><table><tr><td><b>Problem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><br></td>
                     <td><textarea name="problem" id="problem" rows="2" cols="150"> </textarea></td></tr></table>
 
@@ -61,13 +70,13 @@ and open the template in the editor.
                     <?php
                     $reportedBy = mysqli_query($con, "SELECT EmployeeID,EmployeeName FROM employees");
                     while (($row = mysqli_fetch_array($reportedBy)) != NULL) {
-                        echo "<option value=\"p1\">" . $row['EmployeeID'] . "  " . $row['EmployeeName'] . "</option>";
+                        echo "<option value=" . $row['EmployeeName'] . ">" . $row['EmployeeID'] . "  " . $row['EmployeeName'] . "</option>";
                     }
                     ?>
                 </select>
 
                 <b>&nbsp;Date</b>
-                <input type="date" id="dated" name="dated" />
+                <input type="date" id="dated"  value="<?php echo date('Y-m-d'); ?>" name="dated" />
 
                 <p align="center"><i>Items below are for use only by the development team</i></p>
 
@@ -103,7 +112,9 @@ and open the template in the editor.
                 echo '<select name="status" disabled="disabled">';
                 echo '<option value=\"s1\">Open</option>';
                 echo '<option value=\"s2\">Closed </option>';
+                echo '<option value=\"s3\">Resolved </option>';
                 echo "</select>";
+
                 mysqli_close($con);
                 ?>
                 <b>Priority</b>
