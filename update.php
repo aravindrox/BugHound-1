@@ -1,6 +1,9 @@
 <?php
 
 session_start();
+if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
+    header("Location: index.html");
+}
 $bug = $_SESSION['bug_id'];
 
 if (isset($_POST['submitCreate'])) {//if the submit button is clicked

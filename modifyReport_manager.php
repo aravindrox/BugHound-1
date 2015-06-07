@@ -1,9 +1,9 @@
-<?php
+<?PHP
 session_start();
-
-if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
+if (!(isset($_SESSION['login_manager']) && $_SESSION['login_manager'] != '')) {
     header("Location: index.html");
 }
+
 /* @var $_POST type */
 $_SESSION['bug_id'] = $_POST['bugID'];
 ?>
@@ -22,8 +22,6 @@ and open the template in the editor.
     </head>
 
     <body>
-
-
         <?php
         $con = mysqli_connect('localhost', 'root', '', 'test');
         if (!$con) {
@@ -38,14 +36,14 @@ and open the template in the editor.
         while ($row = $result->fetch_assoc()) {
             ?>
 
-            <form action="update.php" name="updateRep" onsubmit="return updateReportValidate()" method="post">
+        <form action="update_Manager.php" name="updateRep" onsubmit="return updateReportValidate()" method="post">
                 <h2> Bug Report Update Page for ID: <?php echo $row['BugID']; ?></h2><br/>
 
-                <b> Program</b> <select name="program" id="pgm"><?php echo '<option value="' . $row['ProgramName'] . '">' . $row['ProgramName'] . '</option>'; ?></select>
-                <b> Release</b> <select name="release" id="rel"><?php echo '<option value="' . $row['Release'] . '">' . $row['Release'] . '</option>'; ?></select>
-                <b> Version</b> <select name="version" id="ver"><?php echo '<option value="' . $row['Version'] . '">' . $row['Version'] . '</option>'; ?></select>
+                <b> Program</b> <select name="program" id="pgm" disabled="disabled"><?php echo '<option value="' . $row['ProgramName'] . '">' . $row['ProgramName'] . '</option>'; ?></select>
+                <b> Release</b> <select name="release" id="rel" disabled="disabled"><?php echo '<option value="' . $row['Release'] . '">' . $row['Release'] . '</option>'; ?></select>
+                <b> Version</b> <select name="version" id="ver" disabled="disabled"><?php echo '<option value="' . $row['Version'] . '">' . $row['Version'] . '</option>'; ?></select>
                 <br><br><b> Report Type </b>
-                <select name="reportType" id="reportType">
+                <select name="reportType" id="reportType" disabled="disabled">
                     <?php echo '<option value="' . $row['ReportType'] . '">' . $row['ReportType'] . '</option>'; ?>
                     <option value="Coding Error"> Coding Error </option>
                     <option value="Design Issue"> Design Issue </option>
@@ -56,7 +54,7 @@ and open the template in the editor.
                 </select>
 
                 <b> Severity </b>
-                <select name="severity" id="severity">
+                <select name="severity" id="severity" disabled="disabled">
                     <?php echo '<option value="' . $row['Severity'] . '">' . $row['Severity'] . '</option>'; ?>
                     <option value="Fatal"> Fatal</option>
                     <option value="Severe"> Severe</option>
@@ -64,10 +62,10 @@ and open the template in the editor.
                 </select><br/></br>
 
                 <b>Problem Summary </b>
-                <input type="text" name="probSummary" id="probSummary" value ="<?php echo "$row[ProblemSummary]" ?>" />
+                <input type="text" name="probSummary" disabled="disabled" id="probSummary" value ="<?php echo "$row[ProblemSummary]" ?>" />
 
                 <b> Reproducible?</b>
-                <select name="reprod" id="reprod">
+                <select name="reprod" id="reprod" disabled="disabled">
                     <?php echo '<option value="' . $row['Reproducible'] . '">' . $row['Reproducible'] . '</option>'; ?>
 
                     <option value="Yes">Yes</option>
@@ -75,23 +73,23 @@ and open the template in the editor.
                 </select>
 
                 <br><br><table><tr><td><b>Problem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><br></td>
-                        <td><textarea name="problem" id="problem" rows="2" cols="150"><?php echo "$row[Problem]" ?> </textarea></td></tr></table>
+                        <td><textarea name="problem" disabled="disabled" id="problem" rows="2" cols="150"><?php echo "$row[Problem]" ?> </textarea></td></tr></table>
 
                 <br><b><table><tr><td>Suggested Fix</b><br></td>
-                            <td><textarea name="fix" id="fix" rows="2" cols="150"><?php echo "$row[SuggestedFix]" ?></textarea></td></tr></table>
+                            <td><textarea name="fix" disabled="disabled" id="fix" rows="2" cols="150"><?php echo "$row[SuggestedFix]" ?></textarea></td></tr></table>
 
                     <br><b>&nbsp;Reported by</b>
-                    <select name="reportedBy" id="reportedBy">
+                    <select name="reportedBy" id="reportedBy" disabled="disabled">
                         <?php echo '<option value="' . $row['ReportedBy'] . '">' . $row['ReportedBy'] . '</option>'; ?>
                         <?php
                         $reportedBy = mysqli_query($con, "SELECT EmployeeID,EmployeeName FROM employees");
                         while (($row = mysqli_fetch_array($reportedBy)) != NULL) {
-                            echo "<option value=" . $row['EmployeeName'] . ">" . $row['EmployeeID'] . "  " . $row['EmployeeName'] . "</option>";
+                            echo "<option value=\"p1\">" . $row['EmployeeID'] . "  " . $row['EmployeeName'] . "</option>";
                         }
                         ?>
                     </select>
                     <b>&nbsp;Date</b>
-                    <input type="date" value="<?php echo date("Y-m-d"); ?>" name="dated">
+                    <input type="date" disabled="disabled" value="<?php echo date("Y-m-d"); ?>" name="dated">
                     <p align="center"><i>Items below are for use only by the development team</i></p>
 
                     <br/><br/><b>&nbsp;Functional Area</b>
@@ -107,17 +105,9 @@ and open the template in the editor.
                     <?php
                     echo "<b>&nbsp;Assigned To</b>";
                     ?>
-                    <select name="assignedTo" disabled="disabled">
-                        <option name="testing">  </option>
-                        <option name="dev"> </option>
-                        <?php
-                        
-//                        $assignedTo = mysqli_query($con, "SELECT EmployeeID,EmployeeName FROM employees");
-//                        while (($row = mysqli_fetch_array($assignedTo)) != NULL) {
-//                            echo "<option value=" . $row['EmployeeName'] . ">" . $row['EmployeeID'] . "  " . $row['EmployeeName'] . "</option>";
-//                        }
-                        ?>
-
+                    <select name="assignedTo">
+                        <option value="testing"> Testing </option>
+                        <option value="Dev"> Devs </option>
                     </select>
                     <?php
                     echo "<br><br><b><table><tr><td> Comments <br/></b></td>";
@@ -125,14 +115,18 @@ and open the template in the editor.
 
                     echo '<br><b>&nbsp;Status </b>';
                     echo '<select name="status" disabled="disabled">';
-                    echo '<option value=\"s1\">Open</option>';
-                    echo '<option value=\"s2\">Closed </option>';
-                    echo '<option value=\"s3\">Resolved </option>';
                     echo "</select>";
                     mysqli_close($con);
                     ?>
                     <b>Priority</b>
-                    <select id="priority" disabled="disabled"></select>
+                    <select id="priority" name="priority">
+                        <option value="Fix immediately">Fix immediately </option>
+                        <option value="Fix as soon as possible">Fix as soon as possible</option>
+                        <option value="Fix before next milestone">Fix before next milestone</option>
+                        <option value="Fix before release">Fix before release </option>
+                        <option value="Fix if possible">Fix if possible </option>
+                        <option value="Optional">Optional</option>
+                    </select>
                     <b>Resolution</b>
                     <select id="resolution" disabled="disabled"></select>
                     <b>Resolution Version</b>
@@ -150,7 +144,7 @@ and open the template in the editor.
 
                     <br><br>
                     <input type="submit" name="submitCreate" id="submitCreate"/>
-                    <a href="list.php">
+                    <a href="manager_list.php">
                         <input type="button" value="Cancel" />
                     </a>
                     <script src="scripts/jquery-1.11.3.min.js"></script>
