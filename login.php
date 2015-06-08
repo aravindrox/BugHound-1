@@ -21,10 +21,13 @@ session_start();
         if ($row == 1) {
             if ($_POST['username'] == 'test') {
                 $_SESSION['login'] = 'test';
-            header('location: list.php');
+                header('location: list.php');
             } else if ($_POST['username'] == 'manager') {
                 $_SESSION['login_manager'] = 'manager';
                 header('location: manager_list.php');
+            } else if ($_POST['username'] == 'developer') {
+                $_SESSION['login_dev'] = 'developer';
+                header('location: dev_list.php');
             }
         } else {
             echo ("<SCRIPT>

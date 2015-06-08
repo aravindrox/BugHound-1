@@ -36,7 +36,7 @@ and open the template in the editor.
         while ($row = $result->fetch_assoc()) {
             ?>
 
-        <form action="update_Manager.php" name="updateRep" onsubmit="return updateReportValidate()" method="post">
+            <form action="update_Manager.php" name="updateRep" onsubmit="return updateReportValidate()" method="post">
                 <h2> Bug Report Update Page for ID: <?php echo $row['BugID']; ?></h2><br/>
 
                 <b> Program</b> <select name="program" id="pgm" disabled="disabled"><?php echo '<option value="' . $row['ProgramName'] . '">' . $row['ProgramName'] . '</option>'; ?></select>
@@ -84,7 +84,7 @@ and open the template in the editor.
                         <?php
                         $reportedBy = mysqli_query($con, "SELECT EmployeeID,EmployeeName FROM employees");
                         while (($row = mysqli_fetch_array($reportedBy)) != NULL) {
-                            echo "<option value=\"p1\">" . $row['EmployeeID'] . "  " . $row['EmployeeName'] . "</option>";
+                            echo "<option value=" . $row['EmployeeName'] . ">" . $row['EmployeeID'] . "  " . $row['EmployeeName'] . "</option>";
                         }
                         ?>
                     </select>

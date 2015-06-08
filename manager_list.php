@@ -16,9 +16,9 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title>Welcome Manager</title>
         <script>
-            history.pushState(null, null, 'list.php');
+            history.pushState(null, null, 'manager_list.php');
             window.addEventListener('popstate', function (event) {
-                history.pushState(null, null, 'list.php');
+                history.pushState(null, null, 'manager_list.php');
             });
         </script>
         <link rel="stylesheet" href="assets/css/main.css"/>

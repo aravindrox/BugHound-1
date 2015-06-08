@@ -110,14 +110,6 @@ and open the template in the editor.
                     <select name="assignedTo" disabled="disabled">
                         <option name="testing">  </option>
                         <option name="dev"> </option>
-                        <?php
-                        
-//                        $assignedTo = mysqli_query($con, "SELECT EmployeeID,EmployeeName FROM employees");
-//                        while (($row = mysqli_fetch_array($assignedTo)) != NULL) {
-//                            echo "<option value=" . $row['EmployeeName'] . ">" . $row['EmployeeID'] . "  " . $row['EmployeeName'] . "</option>";
-//                        }
-                        ?>
-
                     </select>
                     <?php
                     echo "<br><br><b><table><tr><td> Comments <br/></b></td>";
@@ -125,9 +117,7 @@ and open the template in the editor.
 
                     echo '<br><b>&nbsp;Status </b>';
                     echo '<select name="status" disabled="disabled">';
-                    echo '<option value=\"s1\">Open</option>';
-                    echo '<option value=\"s2\">Closed </option>';
-                    echo '<option value=\"s3\">Resolved </option>';
+
                     echo "</select>";
                     mysqli_close($con);
                     ?>
