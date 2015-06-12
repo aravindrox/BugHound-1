@@ -28,12 +28,15 @@ session_start();
             } else if ($_POST['username'] == 'developer') {
                 $_SESSION['login_dev'] = 'developer';
                 header('location: dev_list.php');
-            }
-        } else {
-            echo ("<SCRIPT>
+            } else if ($_POST['username'] == 'client') {
+                $_SESSION['login_client'] = 'client';
+                header('location: client_list.php');
+            } else {
+                echo ("<SCRIPT>
     window.alert('Username/Password do not match. Please re-try!');
     window.location.href='index.html';
     </SCRIPT>");
+            }
         }
         mysqli_close($con);
         ?>

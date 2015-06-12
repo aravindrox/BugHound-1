@@ -27,6 +27,7 @@ and open the template in the editor.
     <body>
         <h2>BugHound</h2><a href="logout.php">Logout</a>
         <ul>
+            <li><a href="createReport.php">Create Report</a></li> 
             <li><a href="updateReport_Manager.php">Update Report</a></li>   
         </ul>
     </body>

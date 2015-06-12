@@ -92,7 +92,7 @@ and open the template in the editor.
                     </select>
                     <b>&nbsp;Date</b>
                     <input type="date" value="<?php echo date("Y-m-d"); ?>" name="dated">
-                    <p align="center"><i>Items below are for use only by the development team</i></p>
+                    <!--<p align="center"><i>Items below are for use only by the development team</i></p>
 
                     <br/><br/><b>&nbsp;Functional Area</b>
                     <select name="functional" disabled="disabled">
@@ -136,7 +136,7 @@ and open the template in the editor.
                     <b>Date</b>
                     <input type="date" name="dateTested" disabled="disabled" />
                     <b>Treated as deferred</b>
-                    <input type="checkbox" disabled="disabled"/>
+                    <input type="checkbox" disabled="disabled"/> -->
 
                     <br><br>
                     <input type="submit" name="submitCreate" id="submitCreate"/>

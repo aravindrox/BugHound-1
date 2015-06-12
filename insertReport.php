@@ -2,7 +2,7 @@
 
 session_start();
 
-if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
+if (!(isset($_SESSION['login']) || !(isset($_SESSION['login_client'])) || !(isset($_SESSION['login_dev'])))) {
     header("Location: index.html");
 }
 
@@ -29,10 +29,22 @@ $sql = "INSERT INTO buginfo
 $result = mysqli_query($con, $sql);
 if ($result == TRUE) {
     $last_id = mysqli_insert_id($con);
-    echo ("<SCRIPT>
+    if (isset($_SESSION['login_dev'])) {
+        echo ("<SCRIPT>
+    window.alert($last_id+' : is the Bug ID')
+    window.location.href='dev_list.php';
+    </SCRIPT>");
+    } else if (isset($_SESSION['login_client'])) {
+        echo ("<SCRIPT>
+    window.alert($last_id+' : is the Bug ID')
+    window.location.href='client_list.php';
+    </SCRIPT>");
+    } else {
+        echo ("<SCRIPT>
     window.alert($last_id+' : is the Bug ID')
     window.location.href='list.php';
     </SCRIPT>");
+    }
 } else {
     echo "Error: " . $sql . "<br>" . $con->error;
 }

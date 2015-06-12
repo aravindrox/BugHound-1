@@ -1,6 +1,6 @@
 <?PHP
 session_start();
-if (!(isset($_SESSION['login_dev']))) {
+if (!(isset($_SESSION['login_client']))) {
     header("Location: index.html");
 }
 ?>
@@ -14,11 +14,11 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Welcome Manager</title>
+        <title>Welcome User</title>
         <script>
-            history.pushState(null, null, 'dev_list.php');
+            history.pushState(null, null, 'client_list.php');
             window.addEventListener('popstate', function (event) {
-                history.pushState(null, null, 'dev_list.php');
+                history.pushState(null, null, 'client_list.php');
             });
         </script>
         <link rel="stylesheet" href="assets/css/main.css"/>
@@ -27,8 +27,8 @@ and open the template in the editor.
     <body>
         <h2>BugHound</h2><a href="logout.php">Logout</a>
         <ul>
-            <li><a href="createReport.php">Create Report</a></li> 
-            <li><a href="updateReport_Dev.php">Update Report</a></li>   
+            <li><a href="createReport.php">Create Report</a></li>   
+            <li><a href="searchReport.php">Search Report</a></li>   
         </ul>
     </body>
 </html>
