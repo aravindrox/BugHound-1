@@ -4,7 +4,7 @@ if(isset($_GET["name"]))
 require "opendb.php";
 $name=$_GET["name"];
 $sqlquery="SELECT DISTINCT `release` FROM `pgms` WHERE `name` = '$name' ";
-$data=  mysqli_query($conn,$sqlquery);
+$data=  mysqli_query($con,$sqlquery);
 $rels=array();
 while($row=mysqli_fetch_array($data))
 {

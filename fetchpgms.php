@@ -1,7 +1,7 @@
 <?php
 require "opendb.php";
 $sqlquery="SELECT DISTINCT name FROM pgms";
-$data=  mysqli_query($conn,$sqlquery);
+$data=  mysqli_query($con,$sqlquery);
 
 $pgms=array();
 

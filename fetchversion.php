@@ -7,7 +7,7 @@ $name=$_GET["name"];
 $release=$_GET["release"];
 
 $sqlquery="SELECT DISTINCT `version` FROM `pgms` WHERE `name` = '$name' AND `release` = $release";
-$data=  mysqli_query($conn,$sqlquery);
+$data=  mysqli_query($con,$sqlquery);
 
 $vers=array();
 

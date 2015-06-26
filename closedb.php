@@ -1,5 +1,5 @@
 <?php
 require 'config.php';
-mysqli_close($conn);
+mysqli_close($con);
 ?>
     

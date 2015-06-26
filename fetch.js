@@ -34,4 +34,46 @@ $(function(){
         });
         
     });
-}); 
+    
+    
+     $.getJSON("fetchFunctional.php",success=function(data)
+    {
+        var x=$("#functionalArea");
+        for (k = 0; k < data.length; k++)
+        x.append("<option value='" + data[k]+ "'>" + data[k] + "</option>");
+      
+       
+        
+    });
+    
+    
+     $.getJSON("fetchAssignedTo.php",success=function(data)
+    {
+        var x=$("#assignedTo");
+        for (k = 0; k < data.length; k++)
+        x.append("<option value='" + data[k]+ "'>" + data[k] + "</option>");
+      
+       
+        
+    });
+    
+     $.getJSON("fetchReportedBy.php",success=function(data)
+    {
+        var x=$("#reportedBy");
+        for (k = 0; k < data.length; k++)
+        x.append("<option value='" + data[k]+ "'>" + data[k] + "</option>");
+      
+       
+        
+    });
+    
+     $.getJSON("fetchAssignedTo.php",success=function(data)
+    {
+        var x=$("#resolvedBy");
+        for (k = 0; k < data.length; k++)
+        x.append("<option value='" + data[k]+ "'>" + data[k] + "</option>");
+      
+       
+        
+    });
+});

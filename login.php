@@ -2,11 +2,6 @@
 session_start();
 ?>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <meta charset="UTF-8">
@@ -14,20 +9,37 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        $con = mysqli_connect('localhost', 'root', '', 'test');
+        $con = mysqli_connect('localhost', 'root', '', 'testdatabase');
         if (!$con) {
             die('Could not connect ' . mysqli_connect_error());
         }
 
-        mysqli_select_db($con, "test");
+        mysqli_select_db($con, "testdatabase");
 
         $query = mysqli_query($con, "select *  from `userlist` where user = '" . filter_input(INPUT_POST, 'username') . "' AND password = '" . filter_input(INPUT_POST, 'pass') . "'");
         $row = mysqli_num_rows($query);
         if ($row == 1) {
-            $_SESSION['login'] = filter_input(INPUT_POST, 'username'); // initializing the session
-            header("location: list.php");
-        } else {
-            echo "YOU ENTERD WRONG ID/PASSWORD. PLEASE RETRY!";
+            if ($_POST['username'] == 'test') {
+                $_SESSION['login'] = 'test';
+                header('location: list.php');
+            } else if ($_POST['username'] == 'manager') {
+                $_SESSION['login_manager'] = 'manager';
+                header('location: manager_list.php');
+            } else if ($_POST['username'] == 'developer') {
+                $_SESSION['login_dev'] = 'developer';
+                header('location: dev_list.php');
+            } else if ($_POST['username'] == 'client') {
+                $_SESSION['login_client'] = 'client';
+                header('location: client_list.php');
+            } else if ($_POST['username'] == 'admin') {
+                $_SESSION['login_admin'] = 'admin';
+                header('location: admin_list.php');
+            } else {
+                echo ("<SCRIPT>
+    window.alert('Username/Password do not match. Please re-try!');
+    window.location.href='index.html';
+    </SCRIPT>");
+            }
         }
         mysqli_close($con);
         ?>
