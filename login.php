@@ -24,22 +24,22 @@ session_start();
                 header('location: list.php');
             } else if ($_POST['username'] == 'manager') {
                 $_SESSION['login_manager'] = 'manager';
-                header('location: manager_list.php');
+                header('location: list.php');
             } else if ($_POST['username'] == 'developer') {
                 $_SESSION['login_dev'] = 'developer';
-                header('location: dev_list.php');
+                header('location: list.php');
             } else if ($_POST['username'] == 'client') {
                 $_SESSION['login_client'] = 'client';
-                header('location: client_list.php');
+                header('location: list.php');
             } else if ($_POST['username'] == 'admin') {
                 $_SESSION['login_admin'] = 'admin';
-                header('location: admin_list.php');
-            } else {
-                echo ("<SCRIPT>
+                header('location: list.php');
+            }
+        } else {
+            echo ("<SCRIPT>
     window.alert('Username/Password do not match. Please re-try!');
     window.location.href='index.html';
     </SCRIPT>");
-            }
         }
         mysqli_close($con);
         ?>

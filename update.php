@@ -1,32 +1,51 @@
 <?php
 
 session_start();
-if (!(isset($_SESSION['login']) && $_SESSION['login'] != '')) {
+if (!(isset($_SESSION['login']) || !(isset($_SESSION['login_manager'])) || !(isset($_SESSION['login_dev'])))) {
     header("Location: index.html");
 }
-$bug = $_SESSION['bug_id'];
+$bug = $_SESSION['bug'];
 
 if (isset($_POST['submitCreate'])) {//if the submit button is clicked
-    $con = mysqli_connect('localhost', 'root', '', 'test');
-    if (!$con) {
+    $conManager = mysqli_connect('localhost', 'root', '', 'testdatabase');
+    if (!$conManager) {
         die('Could not connect!' . mysqli_error());
     }
-    mysqli_select_db($con, "test");
+    mysqli_select_db($conManager, "testdatabase");
 
-    $Pname = $_POST['program'];
-    $rele = $_POST['release'];
-    $vers = $_POST['version'];
-    $rtype = $_POST['reportType'];
-    $sever = $_POST['severity'];
-    $psumm = $_POST['probSummary'];
-    $rep = $_POST['reprod'];
-    $prob = $_POST['problem'];
+    $program = $_POST['program'];
+    $release = $_POST['release'];
+    $version = $_POST['version'];
+    $reportType = $_POST['reportType'];
+    $severity = $_POST['severity'];
+    $probSummary = $_POST['probSummary'];
+    $reprod = $_POST['reprod'];
+    $problem = $_POST['problem'];
     $fix = $_POST['fix'];
-    $repBy = $_POST['reportedBy'];
-    $dateMod = $_POST['dated'];
+    $reportedBy = $_POST['reportedBy'];
+    $dated = $_POST['dated'];
+    $assigned = $_POST['assignedTo'];
+    if (isset($_SESSION['login_manager'])) {
+        $prior = $_POST['priority'];
+    }
+    $func = $_POST['functional'];
+    $comm = $_POST['comments'];
+    $stat = $_POST['status'];
+    $res = $_POST['resolution'];
+    $resv = $_POST['resolutionVersion'];
+    $resB = $_POST['resolutionBy'];
+    $dateSol = $_POST['dateSolved'];
+    $tested = $_POST['testedBy'];
+    $testedDate = $_POST['dateTested'];
+    $isDefer = $_POST['defer'];
 
-    $update = "UPDATE `buginfo` SET `ProgramName`='$Pname', `Release_`='$rele', `Version`='$vers', `ReportType`= '$rtype', `Severity` = '$sever', `ProblemSummary`='$psumm', `Reproducible`='$rep', `Problem`='$prob', `SuggestedFix`='$fix', `ReportedBy`='$repBy', `ReportedDate`='$dateMod' WHERE BugID='$bug'";
-    $result = mysqli_query($con, $update);
+    if (isset($_SESSION['login_manager'])) {
+        $updateManager = "UPDATE `buginfo` SET `TestedBy`='$tested',`TestedDate`='$testedDate',`TreatAsDeffered`='$isDefer',`ProgramName`='$program',`release_`='$release',`version`='$version',`ReportType`='$reportType', `Severity`='$severity',`ProblemSummary`='$probSummary', `Reproducible`='$reprod',`problem`='$problem',`SuggestedFix`='$fix',`ReportedBy`='$reportedBy', `ReportedDate`='$dated',`AssignedTo`='$assigned', `Priority`='$prior', `FunctionalArea`='$func', `Comments`='$comm', `Status`='$stat', `Resolution`='$res', `ResolutionVersion`='$resv', `ResolvedBy`='$resB', `ResolvedDate`='$dateSol' WHERE `BugID`='$bug'";
+    }
+    else {
+         $updateManager = "UPDATE `buginfo` SET `TestedBy`='$tested',`TestedDate`='$testedDate',`TreatAsDeffered`='$isDefer',`ProgramName`='$program',`release_`='$release',`version`='$version',`ReportType`='$reportType', `Severity`='$severity',`ProblemSummary`='$probSummary', `Reproducible`='$reprod',`problem`='$problem',`SuggestedFix`='$fix',`ReportedBy`='$reportedBy', `ReportedDate`='$dated',`AssignedTo`='$assigned', `FunctionalArea`='$func', `Comments`='$comm', `Status`='$stat', `Resolution`='$res', `ResolutionVersion`='$resv', `ResolvedBy`='$resB', `ResolvedDate`='$dateSol' WHERE `BugID`='$bug'";       
+    }
+    $result = mysqli_query($conManager, $updateManager);
     if ($result == TRUE) {
 
         echo ("<SCRIPT>
@@ -34,7 +53,7 @@ if (isset($_POST['submitCreate'])) {//if the submit button is clicked
     window.location.href='list.php';
     </SCRIPT>");
     } else {
-        echo "Error: " . $update . "<br>" . $con->error;
+        echo "Error: " . $updateManager . "<br>" . $conManager->error;
     }
-    mysqli_close($con);
+    mysqli_close($conManager);
 }

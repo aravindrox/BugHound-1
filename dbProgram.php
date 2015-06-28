@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!(isset($_SESSION['login_admin']))) {
+if (!(isset($_SESSION['login_manager']))) {
     header("Location: index.html");
 }
 if (isset($_POST['delete_pgm']) && $_POST['program_name']) {

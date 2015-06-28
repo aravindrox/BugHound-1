@@ -16,15 +16,16 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title>Create Bug Report</title>
         <link rel="stylesheet" href="assets/css/main.css"/>
+    
     </head>
     <body>
         <form action="insertReport.php" name="createRep" onsubmit="return createReportValidate()" method="post">
             <?php
-            $con = mysqli_connect('localhost', 'root', '', 'test');
+            $con = mysqli_connect('localhost', 'root', '', 'testdatabase');
             if (!$con) {
                 die('Could not connect!' . mysqli_error());
             }
-            mysqli_select_db($con, "test");
+            mysqli_select_db($con, "testdatabase");
             ?>
             <h2> New Bug Report Entry Page</h2><br/>
 
@@ -78,8 +79,9 @@ and open the template in the editor.
                 <b>&nbsp;Date</b>
                 <input type="date" id="dated"  value="<?php echo date('Y-m-d'); ?>" name="dated" />
                 <br><br>
-                <input type="submit" name="submitCreate" id="submitCreate"/>
-                <button type="reset" value="Reset">Reset</button>
+                <input type="submit" value='Submit' name="submitCreate" id="submitCreate"/>
+                <button type="reset" value="Reset" onclick="window.location.reload()">Reset</button>
+                <input type='submit' value="Cancel" onclick="window.location.href='list.php'" />
                 
                 <script src="scripts/jquery-1.11.3.min.js"></script>
                 <script src="fetch.js"></script>
