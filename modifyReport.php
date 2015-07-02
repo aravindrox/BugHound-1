@@ -21,6 +21,7 @@ if ((!isset($_SESSION['login'])) && (!isset($_SESSION['login_manager'])) && (!is
         }
         mysqli_select_db($con, "testdatabase");
         $modify = "SELECT * FROM buginfo where BugID = '$_GET[BugID]'";
+        $att = "SELECT `Attachment` FROM buginfo where BugID = '$_GET[BugID]'";
         $result = mysqli_query($con, $modify)or die(mysqli_error($con));
 
 
@@ -81,6 +82,7 @@ if ((!isset($_SESSION['login'])) && (!isset($_SESSION['login_manager'])) && (!is
                 <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
                 <label for='userfile'><b>Select A File To Upload:</b></label>
                 <input name="userfile" type="file" id="userfile"> 
+               
 
                 <br><br><table><tr><td><b>Problem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><br></td>
                         <td><textarea name="problem"   id="problem" rows="2" cols="150"><?php echo "$row[Problem]" ?> </textarea></td></tr></table>
@@ -131,17 +133,17 @@ if ((!isset($_SESSION['login'])) && (!isset($_SESSION['login_manager'])) && (!is
 
                         <br><b>&nbsp;Status </b>
                         <select name="status"<?php if (!isset($_SESSION['login_manager'])) { ?> disabled="disabled" <?php } ?>>
-                            <?php echo "<option value=" . $stats . ">" . $stats . "</option>"; ?>
+    <?php echo "<option value=" . $stats . ">" . $stats . "</option>"; ?>
                             <option value="Open">Open </option>
                             <option value="Closed">Closed</option>
                         </select>
                         <b>Priority</b>
-                        <?php if (isset($_SESSION['login_manager'])) { ?>
+                            <?php if (isset($_SESSION['login_manager'])) { ?>
                             <select id="priority" name="priority">
-                            <?php } else { ?>
+                                <?php } else { ?>
                                 <select id="priority" name="priority" disabled='disabled'>
                                 <?php } ?>
-                                <?php echo '<option value="' . $priority1 . '">' . $priority1 . '</option>'; ?>
+    <?php echo '<option value="' . $priority1 . '">' . $priority1 . '</option>'; ?>
                                 <option value="Fix Immediately">Fix immediately </option>
                                 <option value="Fix As Soon As Possible">Fix as soon as possible</option>
                                 <option value="Fix before next milestone">Fix before next milestone</option>
@@ -151,7 +153,7 @@ if ((!isset($_SESSION['login'])) && (!isset($_SESSION['login_manager'])) && (!is
                             </select>
                             <b>Resolution</b>
                             <select name="resolution" <?php if (!isset($_SESSION['login_dev'])) { ?> disabled="disabled" <?php } ?>>
-                                <?php echo '<option value="' . $resol . '">' . $resol . '</option>'; ?>
+    <?php echo '<option value="' . $resol . '">' . $resol . '</option>'; ?>
                                 <option value="Pending">Pending </option>
                                 <option value="Fixed">Fixed</option>
                                 <option value="Irreproducible">Irreproducible</option>
@@ -200,7 +202,7 @@ if ((!isset($_SESSION['login'])) && (!isset($_SESSION['login_manager'])) && (!is
                             <input type="date" name="dateTested" value="<?php echo date("Y-m-d"); ?>"/>
                             <b>Treated as deferred</b>
                             <select name="defer"<?php if (!isset($_SESSION['login'])) { ?> disabled="disabled" <?php } ?>>
-                                <?php echo "<option value=" . $deferred . ">" . $deferred . "</option>"; ?>
+    <?php echo "<option value=" . $deferred . ">" . $deferred . "</option>"; ?>
                                 <option value="Yes">Yes</option>
                                 <option value="No">No</option>
                             </select>

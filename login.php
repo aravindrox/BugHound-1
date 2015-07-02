@@ -18,8 +18,8 @@ session_start();
 
         $query = mysqli_query($con, "select *  from `employees` where EmployeeName = '" . filter_input(INPUT_POST, 'username') . "' AND Password = '" . filter_input(INPUT_POST, 'pass') . "'");
         $row = mysqli_num_rows($query);
-        while ($r = $query->fetch_assoc()) {
-            if ($row == 1) {
+        if ($row == 1) {
+            while ($r = $query->fetch_assoc()) {
                 if ($r['designation'] === 'tester') {
                     $_SESSION['login'] = 'test';
                     header('location: list.php');
@@ -33,13 +33,14 @@ session_start();
                     $_SESSION['login_client'] = 'client';
                     header('location: list.php');
                 }
-            } else {
-                echo ("<SCRIPT>
+            }
+        } else {
+            echo ("<SCRIPT>
     window.alert('Username/Password do not match. Please re-try!');
     window.location.href='index.html';
     </SCRIPT>");
-            }
         }
+
         mysqli_close($con);
         ?>
     </body>
