@@ -1,3 +1,9 @@
+<?PHP
+session_start();
+if ((!isset($_SESSION['login'])) && (!isset($_SESSION['login_manager'])) && (!isset($_SESSION['login_dev']))) {
+    header("Location: index.html");
+}
+?>
 <html>
     <head>
         <meta charset="UTF-8">

@@ -16,23 +16,20 @@ session_start();
 
         mysqli_select_db($con, "testdatabase");
 
-        $query = mysqli_query($con, "select *  from `userlist` where user = '" . filter_input(INPUT_POST, 'username') . "' AND password = '" . filter_input(INPUT_POST, 'pass') . "'");
+        $query = mysqli_query($con, "select *  from `employees` where EmployeeName = '" . filter_input(INPUT_POST, 'username') . "' AND Password = '" . filter_input(INPUT_POST, 'pass') . "'");
         $row = mysqli_num_rows($query);
         if ($row == 1) {
-            if ($_POST['username'] == 'test') {
+            if ($row['designation'] === 'tester') {
                 $_SESSION['login'] = 'test';
                 header('location: list.php');
-            } else if ($_POST['username'] == 'manager') {
+            } else if ($row['designation'] === 'manager') {
                 $_SESSION['login_manager'] = 'manager';
                 header('location: list.php');
-            } else if ($_POST['username'] == 'developer') {
+            } else if ($row['designation'] === 'developer') {
                 $_SESSION['login_dev'] = 'developer';
                 header('location: list.php');
-            } else if ($_POST['username'] == 'client') {
+            } else if ($row['desgination'] === 'client') {
                 $_SESSION['login_client'] = 'client';
-                header('location: list.php');
-            } else if ($_POST['username'] == 'admin') {
-                $_SESSION['login_admin'] = 'admin';
                 header('location: list.php');
             }
         } else {

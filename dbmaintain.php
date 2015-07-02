@@ -1,12 +1,4 @@
 <?php
-/*if(isset($_POST['delete_emp']) && $_POST['empid'])
-{
-    // $empid=$_POST['empid'];
-     $empid=filter_input(INPUT_POST,'empid');
-        require 'opendb.php';
-        $query = mysqli_query($conn,"DELETE FROM `emp` WHERE `id`=$empid");
-        require 'closedb.php';
-}*/
     
 if((filter_input(INPUT_POST,'delete_emp')) && filter_input(INPUT_POST,'empid'))
 {

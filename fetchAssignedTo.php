@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-if (!(isset($_SESSION['login']) || !(isset($_SESSION['login_client'])) || !(isset($_SESSION['login_manager'])) || !(isset($_SESSION['login_dev'])))) {
+if ((!isset($_SESSION['login'])) && (!isset($_SESSION['login_client'])) && (!isset($_SESSION['login_manager'])) && (!isset($_SESSION['login_dev']))) {
     header("Location: index.html");
 }
 require "opendb.php";

@@ -16,16 +16,17 @@ if ((filter_input(INPUT_POST, 'delete_emp')) && filter_input(INPUT_POST, 'empId'
     $query = mysqli_query($con, "DELETE FROM `employees` WHERE `EmployeeID`=$empid");
 }
 
-if (isset($_POST['insert_emp']) && $_POST['empId'] && $_POST['name'] && $_POST['designation']) {
+if (isset($_POST['insert_emp']) && $_POST['empId'] && $_POST['pass'] && $_POST['name'] && $_POST['designation']) {
     $empid = $_POST['empId'];
     $name = $_POST['name'];
+    $empPass = $_POST['pass'];
     $designation = $_POST['designation'];
     $con = mysqli_connect('localhost', 'root', '', 'testdatabase');
     if (!$con) {
         die('Could not connect!' . mysqli_error());
     }
     mysqli_select_db($con, "testdatabase");
-    $query = mysqli_query($con, "INSERT INTO `employees` (`EmployeeID`, `EmployeeName`, `designation`) VALUES ('$empid', '$name', '$designation');");
+    $query = mysqli_query($con, "INSERT INTO `employees` (`EmployeeID`, `EmployeeName`, `Password`,`designation`) VALUES ('$empid', '$name', '$empPass', '$designation');");
     if ($query === TRUE) {
         echo ("<SCRIPT>
     window.alert($empid+' : succefully inserted');
@@ -89,8 +90,13 @@ if (isset($_POST['insert_emp']) && $_POST['empId'] && $_POST['name'] && $_POST['
         <form action="dbEmp.php" method="POST" name="emp_reset" onsubmit="validateForm()">
             <table>
                 <tr>Employee ID: </tr>
-                <tr><input type="number" name="empId" min="100" max="999" required="required"></tr>
-                <tr>&nbsp;Employee Name: &nbsp;<input type="text" name="name" size="10" required="required"></tr>
+                <tr><input type="number" name="empId" min="100" max="999" required="required">
+
+                <tr>&nbsp;Employee Name: &nbsp;</tr>
+                <tr><input type="text" name="name" size="10" required="required"> </tr>
+
+                <tr>&nbsp;Employee Password: &nbsp;<input type="password" name="pass" required="required"></tr>                
+
                 <tr>&nbsp; Employee Designation 
                 <select name="designation" required="required">
                     <option value="Client">Client</option>

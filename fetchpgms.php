@@ -12,4 +12,3 @@ while($row= mysqli_fetch_array($data))
 echo json_encode($pgms);
 
 require "closedb.php";
-?>

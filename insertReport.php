@@ -1,7 +1,9 @@
 <?php
 
 session_start();
-
+if ((!isset($_SESSION['login'])) && (!isset($_SESSION['login_client'])) && (!isset($_SESSION['login_manager'])) && (!isset($_SESSION['login_dev']))) {
+    header("Location: index.html");
+}
 $con = mysqli_connect('localhost', 'root', '', 'testdatabase');
 if (!$con) {
     die('Could not connect!' . mysqli_error());

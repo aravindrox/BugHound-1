@@ -1,4 +1,4 @@
-<?PHP
+<?php
 
 session_start();
 if (!(isset($_SESSION['login_manager']))) {

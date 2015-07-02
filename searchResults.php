@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-if (!(isset($_SESSION['login']) || !(isset($_SESSION['login_manager'])) || !(isset($_SESSION['login_dev'])))) {
+if ((!isset($_SESSION['login'])) && (!isset($_SESSION['login_manager'])) && (!isset($_SESSION['login_dev']))) {
     header("Location: index.html");
 }
 $con = mysqli_connect('localhost', 'root', '', 'testdatabase');
@@ -100,10 +100,6 @@ if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
 
         $bug = $row["BugID"];
-
-
-
-
         echo '  <tr> <td> Bug ' . $bug . '  </td>';
         echo '<td> ' . $row["ProgramName"] . ' </td> ';
         echo '<td> ' . $row["ProblemSummary"] . ' </td> ';
@@ -112,7 +108,6 @@ if (mysqli_num_rows($result) > 0) {
 } else {
     echo " <h2> Your search yielded 0 results </h2>";
 }
-
 echo '</tbody> </table> <br> <br>';
 echo '<a href="searchReport.php">  <input type="button" value="back to search" /> </a>  ';
 mysqli_close($con);

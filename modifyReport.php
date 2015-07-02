@@ -1,6 +1,6 @@
 <?PHP
 session_start();
-if (!(isset($_SESSION['login']) || !(isset($_SESSION['login_manager'])) || !(isset($_SESSION['login_manager'])) || !(isset($_SESSION['login_dev'])))) {
+if ((!isset($_SESSION['login'])) && (!isset($_SESSION['login_manager'])) && (!isset($_SESSION['login_dev']))) {
     header("Location: index.html");
 }
 ?>
@@ -107,8 +107,9 @@ if (!(isset($_SESSION['login']) || !(isset($_SESSION['login_manager'])) || !(iss
                         }
                         ?>
                     </select>
-                    <b>&nbsp;Assigned To</b>
-                    <select name="assignedTo">
+                    <b>&nbsp;Assigned To</b> 
+
+                    <select name="assignedTo" <?php if (!isset($_SESSION['login_manager'])) { ?> disabled="disabled" <?php } ?>>
                         <?php
                         echo '<option value="' . $assign . '">' . $assign . '</option>';
 
@@ -125,7 +126,7 @@ if (!(isset($_SESSION['login']) || !(isset($_SESSION['login_manager'])) || !(iss
                         </table>
 
                         <br><b>&nbsp;Status </b>
-                        <select name="status">
+                        <select name="status"<?php if (!isset($_SESSION['login_manager'])) { ?> disabled="disabled" <?php } ?>>
                             <?php echo "<option value=" . $stats . ">" . $stats . "</option>"; ?>
                             <option value="Open">Open </option>
                             <option value="Closed">Closed</option>
@@ -145,7 +146,7 @@ if (!(isset($_SESSION['login']) || !(isset($_SESSION['login_manager'])) || !(iss
                                 <option value="Optional">Optional</option>
                             </select>
                             <b>Resolution</b>
-                            <select name="resolution">
+                            <select name="resolution" <?php if (!isset($_SESSION['login_dev'])) { ?> disabled="disabled" <?php } ?>>
                                 <?php echo '<option value="' . $resol . '">' . $resol . '</option>'; ?>
                                 <option value="Pending">Pending </option>
                                 <option value="Fixed">Fixed</option>
@@ -158,7 +159,7 @@ if (!(isset($_SESSION['login']) || !(isset($_SESSION['login_manager'])) || !(iss
                                 <option value="Duplicate">Duplicate</option>
                             </select>
                             <b>Resolution Version</b>
-                            <select name="resolutionVersion" id="ver">
+                            <select name="resolutionVersion" id="ver" <?php if (!isset($_SESSION['login_dev'])) { ?> disabled="disabled" <?php } ?>>
                                 <?php
                                 echo "<option value=" . $resolver . ">" . $resolver . "</option>";
                                 $resVer = mysqli_query($con, "SELECT distinct version FROM pgms");
@@ -170,7 +171,7 @@ if (!(isset($_SESSION['login']) || !(isset($_SESSION['login_manager'])) || !(iss
                             </select>
 
                             <br><br><b>Resolved by</b>
-                            <select name="resolutionBy">
+                            <select name="resolutionBy" <?php if (!isset($_SESSION['login_dev'])) { ?> disabled="disabled" <?php } ?>>
                                 <?php
                                 echo "<option value=" . $resolBy . ">" . $resolBy . "</option>";
                                 $resolvedBy = mysqli_query($con, "SELECT EmployeeID,EmployeeName FROM employees");
@@ -179,10 +180,10 @@ if (!(isset($_SESSION['login']) || !(isset($_SESSION['login_manager'])) || !(iss
                                 }
                                 ?> 
                             </select>
-                            <b>Date</b>
+                            <b>Resolved Date</b>
                             <input type="date" name="dateSolved" value="<?php echo date("Y-m-d"); ?>"/>
                             <b>Tested by</b>
-                            <select name="testedBy">
+                            <select name="testedBy" <?php if (!isset($_SESSION['login'])) { ?> disabled="disabled" <?php } ?>>
                                 <?php
                                 echo "<option value=" . $testedBy . ">" . $testedBy . "</option>";
                                 $testBy = mysqli_query($con, "SELECT EmployeeID,EmployeeName FROM employees");
@@ -191,10 +192,10 @@ if (!(isset($_SESSION['login']) || !(isset($_SESSION['login_manager'])) || !(iss
                                 }
                                 ?> 
                             </select>
-                            <b>Date</b>
+                            <b>Tested Date</b>
                             <input type="date" name="dateTested" value="<?php echo date("Y-m-d"); ?>"/>
                             <b>Treated as deferred</b>
-                            <select name="defer">
+                            <select name="defer"<?php if (!isset($_SESSION['login'])) { ?> disabled="disabled" <?php } ?>>
                                 <?php echo "<option value=" . $deferred . ">" . $deferred . "</option>"; ?>
                                 <option value="Yes">Yes</option>
                                 <option value="No">No</option>

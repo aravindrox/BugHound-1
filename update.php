@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-if (!(isset($_SESSION['login']) || !(isset($_SESSION['login_manager'])) || !(isset($_SESSION['login_dev'])))) {
+if ((!isset($_SESSION['login'])) && (!isset($_SESSION['login_manager'])) && (!isset($_SESSION['login_dev']))) {
     header("Location: index.html");
 }
 $bug = $_SESSION['bug'];
@@ -41,9 +41,8 @@ if (isset($_POST['submitCreate'])) {//if the submit button is clicked
 
     if (isset($_SESSION['login_manager'])) {
         $updateManager = "UPDATE `buginfo` SET `TestedBy`='$tested',`TestedDate`='$testedDate',`TreatAsDeffered`='$isDefer',`ProgramName`='$program',`release_`='$release',`version`='$version',`ReportType`='$reportType', `Severity`='$severity',`ProblemSummary`='$probSummary', `Reproducible`='$reprod',`problem`='$problem',`SuggestedFix`='$fix',`ReportedBy`='$reportedBy', `ReportedDate`='$dated',`AssignedTo`='$assigned', `Priority`='$prior', `FunctionalArea`='$func', `Comments`='$comm', `Status`='$stat', `Resolution`='$res', `ResolutionVersion`='$resv', `ResolvedBy`='$resB', `ResolvedDate`='$dateSol' WHERE `BugID`='$bug'";
-    }
-    else {
-         $updateManager = "UPDATE `buginfo` SET `TestedBy`='$tested',`TestedDate`='$testedDate',`TreatAsDeffered`='$isDefer',`ProgramName`='$program',`release_`='$release',`version`='$version',`ReportType`='$reportType', `Severity`='$severity',`ProblemSummary`='$probSummary', `Reproducible`='$reprod',`problem`='$problem',`SuggestedFix`='$fix',`ReportedBy`='$reportedBy', `ReportedDate`='$dated',`AssignedTo`='$assigned', `FunctionalArea`='$func', `Comments`='$comm', `Status`='$stat', `Resolution`='$res', `ResolutionVersion`='$resv', `ResolvedBy`='$resB', `ResolvedDate`='$dateSol' WHERE `BugID`='$bug'";       
+    } else {
+        $updateManager = "UPDATE `buginfo` SET `TestedBy`='$tested',`TestedDate`='$testedDate',`TreatAsDeffered`='$isDefer',`ProgramName`='$program',`release_`='$release',`version`='$version',`ReportType`='$reportType', `Severity`='$severity',`ProblemSummary`='$probSummary', `Reproducible`='$reprod',`problem`='$problem',`SuggestedFix`='$fix',`ReportedBy`='$reportedBy', `ReportedDate`='$dated',`AssignedTo`='$assigned', `FunctionalArea`='$func', `Comments`='$comm', `Status`='$stat', `Resolution`='$res', `ResolutionVersion`='$resv', `ResolvedBy`='$resB', `ResolvedDate`='$dateSol' WHERE `BugID`='$bug'";
     }
     $result = mysqli_query($conManager, $updateManager);
     if ($result == TRUE) {
