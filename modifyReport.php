@@ -78,6 +78,10 @@ if ((!isset($_SESSION['login'])) && (!isset($_SESSION['login_manager'])) && (!is
                     <option value="No">No</option>
                 </select>
 
+                <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
+                <label for='userfile'><b>Select A File To Upload:</b></label>
+                <input name="userfile" type="file" id="userfile"> 
+
                 <br><br><table><tr><td><b>Problem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><br></td>
                         <td><textarea name="problem"   id="problem" rows="2" cols="150"><?php echo "$row[Problem]" ?> </textarea></td></tr></table>
 

@@ -16,10 +16,10 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title>Create Bug Report</title>
         <link rel="stylesheet" href="assets/css/main.css"/>
-    
+
     </head>
     <body>
-        <form action="insertReport.php" name="createRep" onsubmit="return createReportValidate()" method="post">
+        <form action="insertReport.php" name="createRep" enctype="multipart/form-data" onsubmit="return createReportValidate()" method="post">
             <?php
             $con = mysqli_connect('localhost', 'root', '', 'testdatabase');
             if (!$con) {
@@ -59,6 +59,9 @@ and open the template in the editor.
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
             </select>
+            <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
+            <label for='uploaded_file'><b>Select A File To Upload:</b></label>
+            <input name="userfile" type="file" id="userfile"> 
             <br><br><table><tr><td><b>Problem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><br></td>
                     <td><textarea name="problem" id="problem" rows="2" cols="150"> </textarea></td></tr></table>
 
@@ -81,8 +84,8 @@ and open the template in the editor.
                 <br><br>
                 <input type="submit" value='Submit' name="submitCreate" id="submitCreate"/>
                 <button type="reset" value="Reset" onclick="window.location.reload()">Reset</button>
-                <input type='submit' value="Cancel" onclick="window.location.href='list.php'" />
-                
+                <input type='submit' value="Cancel" onclick="window.location.href = 'list.php'" />
+
                 <script src="scripts/jquery-1.11.3.min.js"></script>
                 <script src="fetch.js"></script>
                 <script src="scripts/createReportValidate.js"></script>
