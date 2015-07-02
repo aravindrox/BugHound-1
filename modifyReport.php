@@ -105,9 +105,9 @@ if ((!isset($_SESSION['login'])) && (!isset($_SESSION['login_manager'])) && (!is
                     <input type="date" value="<?php echo date("Y-m-d"); ?>" name="dated">
                     <p align="center"><i>Items below are for use only by the development team</i></p>
                     <br/><br/><b>&nbsp;Functional Area</b>
-                    <select name="functional">
+                    <select name="functional" id="functional">
                         <?php
-                        $functional = mysqli_query($con, "SELECT functionalname FROM functional");
+                        $functional = mysqli_query($con, "SELECT DISTINCT functionalname FROM functional");
                         while (($row = mysqli_fetch_array($functional)) != NULL) {
                             echo "<option value = " . $row['functionalid'] . " > " . $row['functionalname'] . "</option>";
                         }
@@ -216,6 +216,7 @@ if ((!isset($_SESSION['login'])) && (!isset($_SESSION['login_manager'])) && (!is
                             </a>
                             <script src="scripts/jquery-1.11.3.min.js"></script>
                             <script src="fetch.js"></script>
+                            <script src="fetch_functional.js"></script>
                             <script src="scripts/createReportValidate.js"></script>
                             <?php
                         }

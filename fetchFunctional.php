@@ -5,7 +5,8 @@ if ((!isset($_SESSION['login'])) && (!isset($_SESSION['login_client'])) && (!iss
     header("Location: index.html");
 }
 require "opendb.php";
-$sqlquery = "SELECT DISTINCT functionalname FROM functional";
+$name=$_GET["name"];
+$sqlquery = "SELECT DISTINCT functionalname FROM functional where program_name='$name'";
 $data = mysqli_query($con, $sqlquery);
 
 $functionalArea = array();
