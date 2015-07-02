@@ -18,25 +18,27 @@ session_start();
 
         $query = mysqli_query($con, "select *  from `employees` where EmployeeName = '" . filter_input(INPUT_POST, 'username') . "' AND Password = '" . filter_input(INPUT_POST, 'pass') . "'");
         $row = mysqli_num_rows($query);
-        if ($row == 1) {
-            if ($row['designation'] === 'tester') {
-                $_SESSION['login'] = 'test';
-                header('location: list.php');
-            } else if ($row['designation'] === 'manager') {
-                $_SESSION['login_manager'] = 'manager';
-                header('location: list.php');
-            } else if ($row['designation'] === 'developer') {
-                $_SESSION['login_dev'] = 'developer';
-                header('location: list.php');
-            } else if ($row['desgination'] === 'client') {
-                $_SESSION['login_client'] = 'client';
-                header('location: list.php');
-            }
-        } else {
-            echo ("<SCRIPT>
+        while ($r = $query->fetch_assoc()) {
+            if ($row == 1) {
+                if ($r['designation'] === 'tester') {
+                    $_SESSION['login'] = 'test';
+                    header('location: list.php');
+                } else if ($r['designation'] === 'manager') {
+                    $_SESSION['login_manager'] = 'manager';
+                    header('location: list.php');
+                } else if ($r['designation'] === 'developer') {
+                    $_SESSION['login_dev'] = 'developer';
+                    header('location: list.php');
+                } else if ($r['desgination'] === 'client') {
+                    $_SESSION['login_client'] = 'client';
+                    header('location: list.php');
+                }
+            } else {
+                echo ("<SCRIPT>
     window.alert('Username/Password do not match. Please re-try!');
     window.location.href='index.html';
     </SCRIPT>");
+            }
         }
         mysqli_close($con);
         ?>
